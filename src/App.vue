@@ -1,29 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-3">Vuex {{this.$store.state.contador.contador}}</h1>
+        <h1 class="display-3">Menssagem boas vindas {{this.$store.state.mensagemBoasVindas}}</h1>
+        <p class="lead">Padrão de gerenciamento de estado VUEX</p>
+      </div>
     </div>
-    <router-view/>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 border-right">
+          <TarefasLista />
+        </div>
+        <div class="col-sm-3">
+          <Contador />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import "bootstrap/dist/css/bootstrap.css";
+import "font-awesome/css/font-awesome.css";
+import Contador from "@/resources/contador/_components/Contador";
+import TarefasLista from "@/resources/tarefas/_components/TarefasLista";
+export default {
+  name: "app",
+  components: {
+    Contador,
+    TarefasLista
   }
-}
+};
+</script>
+<style lang="scss">
 </style>
