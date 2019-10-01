@@ -40,28 +40,28 @@ export default {
     }
   },
   computed: {
-    classeColuna() {
-      return this.tarefa ? "col-sm-10" : "col-sm-12";
+    classeColuna () {
+      return this.tarefa ? 'col-sm-10' : 'col-sm-12'
     },
-    classeBotao() {
+    classeBotao () {
       return this.tarefa && this.tarefa.concluido
-        ? "btn-success"
-        : "btn-secondary";
+        ? 'btn-success'
+        : 'btn-secondary'
     }
   },
-  created() {
+  created () {
     if (this.tarefa) {
       console.log(
-        "Tarefa por id:",
-        this.$store.getters["tarefas/buscarTarefaPorId"](this.tarefa.id)
-      );
+        'Tarefa por id:',
+        this.$store.getters['tarefas/buscarTarefaPorId'](this.tarefa.id)
+      )
     }
   },
   methods: {
-    salvar(event) {
-      const operacao = !this.tarefa ? "criar" : "editar";
-      console.log("Operação:", operacao);
+    salvar (event) {
+      const operacao = !this.tarefa ? 'criar' : 'editar'
+      console.log('Operação:', operacao)
     }
   }
-};
+}
 </script>

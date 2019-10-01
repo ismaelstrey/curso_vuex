@@ -5,9 +5,6 @@ const state = {
   tarefas: []
 }
 
-
-
-
 export default {
   namespaced: true,
   state,

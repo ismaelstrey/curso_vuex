@@ -20,6 +20,7 @@
         :key="tarefa.id"
         :tarefa="tarefa"
         @editar="selecionarTarefaParaEdicao"
+        @concluir="concluirTarefa({tarefa: $event})"
       />
     </ul>
     <p v-else>Nenhuma Tarefa a fazer</p>
@@ -32,6 +33,7 @@
         :key="tarefa.id"
         :tarefa="tarefa"
         @editar="selecionarTarefaParaEdicao"
+        @concluir="concluirTarefa({tarefa: $event})"
       />
     </ul>
     <p v-else>Nenhuma Tarefa concluida</p>
@@ -39,57 +41,57 @@
   </div>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
-import TarefasListaIten from "@/resources/tarefas/_components/TarefasListaIten";
-import TarefaSalvar from "@/resources/tarefas/_components/TarefaSalvar";
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers("tarefas");
+import register from './../_store/register'
+import { createNamespacedHelpers } from 'vuex'
+import TarefasListaIten from '@/resources/tarefas/_components/TarefasListaIten'
+import TarefaSalvar from '@/resources/tarefas/_components/TarefaSalvar'
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers('tarefas')
 export default {
   components: {
     TarefasListaIten,
     TarefaSalvar
   },
-  data() {
+  data () {
     return {
       exibirFormulario: false,
       tarefaSelecionada: undefined
-    };
+    }
   },
   computed: {
-    ...mapState(["tarefas"]),
+    ...mapState(['tarefas']),
     ...mapGetters([
-      "tarefasConcluidas",
-      "tarefasAFazer",
-      "totalDeTarefasConcluidas",
-      "boasVindas"
+      'tarefasConcluidas',
+      'tarefasAFazer',
+      'totalDeTarefasConcluidas',
+      'boasVindas'
     ])
   },
-  created() {
-    setTimeout(async () => {
-      console.log("USUARIO ATUAL:", this.boasVindas);
-      await this.listarTarefas();
-      console.log("Actions executadas");
-    }, 2000);
-    console.log("mesagem de boas vindas", this.boasVindas);
+  created () {
+    register(this.$store)
+    this.listarTarefas()
   },
   methods: {
-    ...mapActions(["listarTarefas"]),
-    exibirFormularioCriarTarefa(event) {
+    ...mapActions([
+      'listarTarefas',
+      'concluirTarefa'
+    ]),
+    exibirFormularioCriarTarefa (event) {
       if (this.tarefaSelecionada) {
-        this.tarefaSelecionada = undefined;
-        console.log("tarefa selecionada", this.tarefaSelecionada);
-        return;
+        this.tarefaSelecionada = undefined
+        console.log('tarefa selecionada', this.tarefaSelecionada)
+        return
       }
-      this.exibirFormulario = !this.exibirFormulario;
-      console.log("tarefa nao selecionada", this.tarefaSelecionada);
+      this.exibirFormulario = !this.exibirFormulario
+      console.log('tarefa nao selecionada', this.tarefaSelecionada)
     },
-    selecionarTarefaParaEdicao(tarefa) {
-      this.exibirFormulario = true;
-      this.tarefaSelecionada = tarefa;
+    selecionarTarefaParaEdicao (tarefa) {
+      this.exibirFormulario = true
+      this.tarefaSelecionada = tarefa
     },
-    resetar() {
-      this.exibirFormulario = false;
-      this.tarefaSelecionada = undefined;
+    resetar () {
+      this.exibirFormulario = false
+      this.tarefaSelecionada = undefined
     }
   }
-};
+}
 </script>

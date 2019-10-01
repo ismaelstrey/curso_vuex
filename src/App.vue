@@ -20,17 +20,17 @@
   </div>
 </template>
 <script>
-import "bootstrap/dist/css/bootstrap.css";
-import "font-awesome/css/font-awesome.css";
-import Contador from "@/resources/contador/_components/Contador";
-import TarefasLista from "@/resources/tarefas/_components/TarefasLista";
+import 'bootstrap/dist/css/bootstrap.css'
+import 'font-awesome/css/font-awesome.css'
+import Contador from '@/resources/contador/_components/Contador'
+import TarefasLista from '@/resources/tarefas/_components/TarefasLista'
 export default {
-  name: "app",
+  name: 'app',
   components: {
     Contador,
     TarefasLista
   }
-};
+}
 </script>
 <style lang="scss">
 </style>

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import contador from '@/resources/contador/_store/index'
-import tarefas from '@/resources/tarefas/_store/index'
+import contador from '@/resources/contador/_store/'
 
 Vue.use(Vuex)
 
@@ -18,8 +17,7 @@ const mutations = {
   }
 }
 const modules = {
-  contador,
-  tarefas
+  contador
 }
 const actions = {
   logar: ({ commit }, usuario) => {
@@ -28,12 +26,11 @@ const actions = {
 }
 
 export default new Vuex.Store({
+  strict: process.env.NODE_ENV !== 'production',
   state,
   getters,
   actions,
   mutations,
-  modules,
+  modules
 }
 )
-
-

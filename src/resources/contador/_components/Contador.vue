@@ -13,32 +13,32 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       contadorLocal: 2
-    };
+    }
   },
   // computed: mapState(["contador"]),
   computed: {
-    ...mapState("contador", {
+    ...mapState('contador', {
       contador: state => state.contador,
       // contador: "contador",
       contadorAlias: state => state.contador,
-      contadorMultiplicado(state) {
-        return state.contador * this.contadorLocal;
+      contadorMultiplicado (state) {
+        return state.contador * this.contadorLocal
       }
     })
   },
 
   methods: {
-    decrementador() {
-      this.$store.state.contador.contador--;
+    decrementador () {
+      this.$store.state.contador.contador--
     },
-    incrementador() {
-      this.$store.state.contador.contador++;
+    incrementador () {
+      this.$store.state.contador.contador++
     }
   }
-};
+}
 </script>

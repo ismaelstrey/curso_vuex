@@ -1,7 +1,7 @@
 <template>
   <li class="list-group-item d-flex">
     <span class="espacar">{{tarefa.titulo}}</span>
-    <button class="btn btn-sm mr-4" :class="classeCSS" :title="textoBotaoConcluido">
+    <button class="btn btn-sm mr-4" :class="classeCSS" :title="textoBotaoConcluido" @click="$emit('concluir', tarefa)">
       <i class="fa fa-check"></i>
     </button>
     <button class="btn btn-primary btn-sm mr-1" title="editar" @click="$emit('editar', tarefa)">
