@@ -21,6 +21,7 @@
         :tarefa="tarefa"
         @editar="selecionarTarefaParaEdicao"
         @concluir="concluirTarefa({tarefa: $event})"
+        @deletar="confirmarRemocaoTarefa"
       />
     </ul>
     <p v-else>Nenhuma Tarefa a fazer</p>
@@ -34,6 +35,7 @@
         :tarefa="tarefa"
         @editar="selecionarTarefaParaEdicao"
         @concluir="concluirTarefa({tarefa: $event})"
+        @deletar="confirmarRemocaoTarefa"
       />
     </ul>
     <p v-else>Nenhuma Tarefa concluida</p>
@@ -41,11 +43,14 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+import VueAlertify from 'vue-alertify'
 import register from './../_store/register'
 import { createNamespacedHelpers } from 'vuex'
 import TarefasListaIten from '@/resources/tarefas/_components/TarefasListaIten'
 import TarefaSalvar from '@/resources/tarefas/_components/TarefaSalvar'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('tarefas')
+Vue.use(VueAlertify)
 export default {
   components: {
     TarefasListaIten,
@@ -53,12 +58,11 @@ export default {
   },
   data () {
     return {
-      exibirFormulario: false,
-      tarefaSelecionada: undefined
+      exibirFormulario: false
     }
   },
   computed: {
-    ...mapState(['tarefas']),
+    ...mapState(['tarefaSelecionada']),
     ...mapGetters([
       'tarefasConcluidas',
       'tarefasAFazer',
@@ -73,24 +77,35 @@ export default {
   methods: {
     ...mapActions([
       'listarTarefas',
-      'concluirTarefa'
+      'concluirTarefa',
+      'deletarTarefa',
+      'selecionarTarefa',
+      'resetarTarefaSelecionada'
     ]),
+
+    confirmarRemocaoTarefa (tarefa) {
+      const confirmar = window.confirm(
+        `Deseja deletar a tarefa "${tarefa.titulo}"?`
+      )
+      if (confirmar) {
+        this.deletarTarefa({ tarefa })
+      }
+    },
     exibirFormularioCriarTarefa (event) {
       if (this.tarefaSelecionada) {
-        this.tarefaSelecionada = undefined
-        console.log('tarefa selecionada', this.tarefaSelecionada)
+        this.resetarTarefaSelecionada()
         return
       }
       this.exibirFormulario = !this.exibirFormulario
-      console.log('tarefa nao selecionada', this.tarefaSelecionada)
     },
     selecionarTarefaParaEdicao (tarefa) {
       this.exibirFormulario = true
       this.tarefaSelecionada = tarefa
+      this.selecionarTarefa({ tarefa })
     },
     resetar () {
       this.exibirFormulario = false
-      this.tarefaSelecionada = undefined
+      this.resetarTarefaSelecionada()
     }
   }
 }

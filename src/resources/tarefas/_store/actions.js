@@ -3,20 +3,22 @@ import TarefasService from './../_services/TarefasService'
 export default {
   concluirTarefa: async ({ dispatch }, payload) => {
     const tarefa = Object.assign({}, payload.tarefa)
-    tarefa.concluido = !tarefa.concuido
+    tarefa.concluido = !tarefa.concluido
     dispatch('editarTarefa', { tarefa })
   },
   criarTarefa: ({ commit }, { tarefa }) => {
-    return TarefasService.postTtarefa(tarefa)
+    return TarefasService.postTarefa(tarefa)
       .then(response => commit(types.CRIAR_TAREFAS, { tarefa: response.data })
       )
   },
+
   editarTarefa: async ({ commit }, { tarefa }) => {
     const response = await TarefasService.putTarefa(tarefa)
     commit(types.EDITAR_TAREFAS, { tarefa: response.data })
   },
+
   deletarTarefa: async ({ commit }, { tarefa }) => {
-    const response = await TarefasService.deletarTarefa(tarefa.id)
+    const response = await TarefasService.deleteTarefa(tarefa.id)
     commit(types.DELETAR_TAREFAS, { tarefa })
     console.log('Response Actions Service', response)
   },
@@ -24,5 +26,11 @@ export default {
   listarTarefas: async ({ commit }) => {
     const response = await TarefasService.getTarefas()
     commit(types.LISTAR_TAREFAS, { tarefas: response.data })
+  },
+  selecionarTarefa: ({ commit }, payload) => {
+    commit(types.SELECIONAR_TAREFA, payload)
+  },
+  resetarTarefaSelecionada: ({ commit }) => {
+    commit(types.SELECIONAR_TAREFA, { tarefa: undefined })
   }
 }

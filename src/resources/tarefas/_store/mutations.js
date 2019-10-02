@@ -1,4 +1,4 @@
-import { LISTAR_TAREFAS, CRIAR_TAREFAS, EDITAR_TAREFAS, DELETAR_TAREFAS } from './mutations-types'
+import { LISTAR_TAREFAS, CRIAR_TAREFAS, EDITAR_TAREFAS, DELETAR_TAREFAS, SELECIONAR_TAREFA } from './mutations-types'
 
 export default {
 
@@ -15,5 +15,8 @@ export default {
   },
   [LISTAR_TAREFAS]: (state, { tarefas }) => {
     state.tarefas = tarefas
+  },
+  [SELECIONAR_TAREFA]: (state, { tarefa }) => {
+    state.tarefaSelecionada = tarefa
   }
 }
